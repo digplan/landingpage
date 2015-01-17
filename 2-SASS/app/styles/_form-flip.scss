@@ -1,0 +1,181 @@
+.form-flip {
+	max-width: 388px;
+	width: 100%;
+	display: inline-block;
+	position: relative;
+	height: 48px;
+	backface-visibility: hidden;
+	//@include transform-style(preserve-3d);
+	transform: perspective(400px) translateZ(-25px);
+
+ 	//transform: translateZ(-24px);
+  	//z-index: 1000;
+  	//white-space: nowrap;
+
+  // 	.text-input {
+  // 		width: 100%;
+  // 	}
+  // 	.btn {
+		// width: 1%;
+  // 	}
+
+}
+
+.no-csstransitions .form-flip label.error {
+	position: absolute;
+	bottom: -2em;
+	left: 0;
+}
+
+.form-flip__enabler,
+.form-flip__target,
+.form-flip__close {
+	position: absolute;
+	left: 0;
+	top: 0;
+	// visibility: hidden;
+	width: 100%;
+	backface-visibility: hidden;
+	opacity: 0;
+	z-index: 1;
+	transform-origin: 50% 50% -24px;
+	//transform: perspective(400px) rotateX(0deg);
+	visibility: hidden;
+}
+
+.form-flip__enabler {
+	z-index: 2;
+	opacity: 1;
+	visibility: visible;
+}
+
+.form-flip--enabled {
+	.form-flip__enabler {
+		opacity: 0;
+    	z-index: 1;
+    	visibility: hidden;
+		animation: flip-out .7s both;
+	}
+
+	.form-flip__target {
+		opacity: 1;
+    	z-index: 2;
+    	visibility: visible;
+		animation: flip-in .7s both;
+	}
+}
+
+// .form-spinner-group {
+// 	//@include transform-style(preserve-3d);
+// 	transform: perspective(400px) translateZ(-35px);
+// }
+
+.form-flip__target {
+
+}
+
+.form-flip--closed {
+	overflow: hidden;
+	visibility: hidden;
+
+	animation: form-leave .6s both;
+
+	.form-flip__target {
+		opacity: 0;
+    	z-index: 1;
+    	visibility: hidden;
+		animation: none;
+	}
+
+	.form-flip__close {
+		opacity: 1;
+    	z-index: 2;
+    	visibility: visible;
+		animation: none;
+	}
+
+	// .form-flip__close {
+	// 	opacity: 1;
+ //    	z-index: 2;
+	// 	animation: flip-in 1s backwards;
+	// }
+}
+
+.form-flip--success {
+	.form-flip__enabler {
+		opacity: 0;
+    	z-index: 1;
+    	visibility: hidden;
+    	animation: none;
+	}
+
+	.form-flip__target {
+		opacity: 0;
+    	z-index: 1;
+    	visibility: hidden;
+		animation: flip-out .7s both;
+	}
+
+	.form-flip__close {
+		opacity: 1;
+    	z-index: 2;
+    	visibility: visible;
+		animation: flip-in .7s both;
+	}
+}
+
+@keyframes form-leave {
+	0% {
+		max-height: 80px;
+		visibility: visible;
+		transform: scale(1,1);
+	}
+	100% {
+		height: 0px;
+		visibility: hidden;
+		transform: scale(0,0);
+	}
+}
+
+@keyframes flip-out {
+  0% {
+    opacity: 1;
+    visibility: visible;
+    transform: perspective(400px) rotateX(0deg);
+  }
+  99% {
+  	opacity: 0;
+    transform: perspective(400px) rotateX(-90deg);
+  }
+  100% {
+  	opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes flip-in {
+  0% {
+    opacity: 0;
+    visibility: visible;
+    transform: perspective(400px) rotateX(90deg);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(400px) rotateX(0deg);
+  }
+}
+
+.disableTransforms {
+	&.form-flip,
+	.form-flip__enabler,
+	.form-flip__target,
+	.form-flip__close
+	{
+		transform: none;
+		perspective: none;
+		animation-play-state: paused;
+	}
+}

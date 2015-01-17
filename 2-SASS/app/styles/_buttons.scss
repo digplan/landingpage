@@ -1,0 +1,34 @@
+.btn {
+    font-size: 22px;
+    font-weight: 500;
+    color: $brand-color;
+    background: transparent;
+    background: rgba(0,0,0,0);
+    border: 1px solid $brand-color;
+    line-height: 1;
+    padding: 12px 15px;
+    transition: background 200ms;
+    outline: none;
+
+    &:hover,
+    &:active,
+    &:focus {
+        background: rgba(0,0,0,0.25);
+    }
+
+    &[disabled] {
+        &:hover,
+        &:active,
+        &:focus {
+            background: transparent;
+        }
+    }
+}
+
+.btn--font-black {
+    font-weight: 900;
+}
+
+.btn--font-bold {
+    font-weight: 700;
+}

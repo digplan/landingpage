@@ -1,0 +1,490 @@
+$clock-digit-font-size: 40px;
+$clock-digit-width: 53px;
+$clock-digit-height: 61px;
+$clock-digit-spacing: 5px;
+$clock-digit-group-spacing: 20px;
+
+/* Reset */
+.flip-clock-wrapper a {
+    cursor: pointer;
+    text-decoration: none;
+    color: $base-ui-color;
+}
+
+.flip-clock-wrapper ul {
+    list-style: none;
+}
+
+.flip-clock-wrapper.clearfix:before,
+.flip-clock-wrapper.clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.flip-clock-wrapper.clearfix:after {
+    clear: both;
+}
+
+.flip-clock-wrapper.clearfix {
+    *zoom: 1;
+}
+
+/* Main */
+
+.flip-clock-wrapper {
+    font-size: 22px;
+    font-weight: 300;
+    -webkit-user-select: none;
+    // height: $clock-digit-height * 2;
+    padding-bottom: 42px;
+
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    margin-top: 7px;
+}
+
+/* Skeleton */
+
+.flip-clock-wrapper ul {
+    position: relative;
+    display: inline-block;
+    margin: 0 0 $clock-digit-group-spacing 0;
+    width: $clock-digit-width;
+    height: $clock-digit-height;
+    font-size: $clock-digit-font-size;
+    font-weight: normal;
+    line-height: $clock-digit-height - 3;
+    backface-visibility: hidden;
+    //@include transform-style(preserve-3d);
+    // @include transform-style(preserve-3d);
+    // @include transform-origin(0 45px);
+    // @include transform(translateZ(-45px));
+    // @include backface-visibility(hidden);
+}
+
+.flip-clock-wrapper ul + ul {
+  margin-left: $clock-digit-spacing;
+}
+
+// .flip-clock-wrapper .cube-wrap {
+//   //@include perspective(360px);
+//   //@include perspective-origin(100% 45px);
+//   //@include backface-visibility(hidden);
+//   width: 70px;
+//   height: 100px;
+//   position: relative;
+//   float: left;
+// }
+
+.flip-clock-wrapper ul li {
+    z-index: 1;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    line-height: $clock-digit-height - 2;
+    backface-visibility: hidden;
+    transform-origin: 50% 50% (-1 * $clock-digit-height / 2);
+    //outline: 1px solid rgba(0,0,0,0);
+}
+
+.flip-clock-wrapper ul li:first-child {
+    visibility: visible;
+    z-index: 2;
+}
+.flip-clock-started ul li:first-child {
+  visibility: hidden;
+}
+
+.flip-clock-wrapper ul li a {
+    display: block;
+    height: 100%;
+    margin: 0 !important;
+    overflow: visible !important;
+    cursor: default;
+    pointer-events: none;
+}
+
+.flip-clock-wrapper ul li a div {
+    z-index: 1;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.flip-clock-wrapper ul li a div.shadow {
+  display: none;
+}
+
+.flip-clock-wrapper ul li a div.up {
+    border: 1px solid $base-ui-color;
+    //outline: 1px solid rgba(0,0,0,0);
+    border-radius: $brand-round;
+    top: 0;
+}
+
+// .flip-clock-wrapper ul li a div.up:after {
+//   content: "";
+//   position:absolute;
+//   top:44px;
+//   left:0;
+//   z-index: 5;
+//   width: 100%;
+//   height: 3px;
+//   background-color: #000;
+//   background-color: rgba(0,0,0,.4);
+// }
+
+.flip-clock-wrapper ul li a div.down {
+    display: none;
+}
+
+.flip-clock-wrapper ul li a div div.inn {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+/* PLAY */
+
+.flip-clock-wrapper ul.play {
+  // @include transform(translateZ(-45px));
+  //@include animation(flipCube .5s ease 0 1 normal);
+
+
+  transform-style: preserve-3d;
+  transform: perspective(400px) translateZ(-35px);
+
+  .no-csstransformspreserve3d & {
+    transform: perspective(400px) translateZ(-35px);
+  }
+}
+
+@keyframes flipCube {
+  0% {
+    transform: rotateX(0deg) translateZ(-1 * $clock-digit-height / 2);
+  }
+  100% {
+    transform: rotateX(-90deg) translateZ(0px) translateY($clock-digit-height / 2);
+  }
+}
+
+.flip-clock-wrapper ul li.flip-clock-before {
+  visibility: hidden;
+}
+
+
+@keyframes active-to-before {
+  0% {
+    opacity: 1;
+    transform: perspective(400px) rotateX(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: perspective(400px) rotateX(-90deg);
+  }
+}
+
+@keyframes default-to-active {
+  0% {
+    opacity: 0;
+    transform: perspective(400px) rotateX(90deg);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(400px) rotateX(0deg);
+  }
+}
+
+
+.flip-clock-wrapper ul li.flip-clock-active {
+    transform: translateZ(45px);
+}
+
+.flip-clock-wrapper ul.play li.flip-clock-before {
+    //@include transform(rotateX(-270deg) translateZ(45px));
+    animation: active-to-before .7s both;
+    visibility: visible;
+}
+
+.no-csstransforms3d .flip-clock-wrapper ul li.flip-clock-before {
+  display: none;
+}
+
+// .flip-clock-wrapper ul li.flip-clock-before:before, .flip-clock-wrapper ul li.flip-clock-active:before {
+//   content: 'b';
+//   position: absolute;
+//   left: 0;
+//   top: 0;
+//   font-size: 20px;
+// }
+// .flip-clock-wrapper ul li.flip-clock-active:before {
+//   content: 'a';
+// }
+
+
+.flip-clock-wrapper ul.play li.flip-clock-active {
+    //@include transform(translateZ(45px));
+    animation: default-to-active .7s both;
+    //@include animation(asd .5s .5s linear both);
+    z-index: 2;
+}
+
+.flip-clock-divider {
+	display: inline-block;
+	position: relative;
+	width: $clock-digit-group-spacing;
+	height: $clock-digit-height;
+}
+
+.flip-clock-divider.days { width: 0; }
+
+.flip-clock-divider .flip-clock-label {
+	position: absolute;
+	bottom: -17px;
+  width: $clock-digit-width * 2 + $clock-digit-spacing + $clock-digit-group-spacing;
+	right: -1 * ($clock-digit-width * 2 + $clock-digit-spacing + $clock-digit-group-spacing/2);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+// Covers case when we have triple digit days
+.over-99-days {
+  .flip-clock-divider.days .flip-clock-label {
+    margin-right: -1 * $clock-digit-width/2 - $clock-digit-spacing/2;
+  }
+}
+
+// .flip-clock-divider.minutes .flip-clock-label { right: -88px; }
+// .flip-clock-divider.seconds .flip-clock-label { right: -91px; }
+
+// @include keyframes(asd) {
+//   0% {
+//     z-index:2;
+//   }
+//   20% {
+//     z-index:4;
+//   }
+//   100% {
+//     z-index:4;
+//   }
+// }
+
+.flip-clock-wrapper ul.play li.flip-clock-active .down {
+    z-index: 2;
+    //@include animation(turn .5s .5s linear both);
+}
+
+@keyframes turn {
+  0% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
+}
+
+.flip-clock-wrapper ul.play li.flip-clock-before .up {
+    z-index: 2;
+    //@include animation(turn2 .5s linear both);
+}
+
+@keyframes turn2 {
+  0% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(-90deg);
+  }
+}
+
+.flip-clock-wrapper ul li.flip-clock-active {
+    z-index: 3;
+    visibility: visible;
+}
+
+/* SHADOW */
+
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes hide {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+
+.clock-progress {
+  //width: $clock-digit-width*8 + $clock-digit-spacing*4 + $clock-digit-group-spacing*3;
+  width: 100%;
+  height: 19px;
+  border: 1px solid $brand-color;
+  border-radius: $brand-round;
+  position: absolute;
+  bottom: 0;
+  padding: 2px 100% 2px 2px;
+  transition: padding 1s;
+
+  &:after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    float: left;
+    border-radius: $brand-round;
+    background: $brand-color;
+  }
+}
+
+
+@media only screen and (max-width:$palm-end) {
+  .flip-clock-divider.minutes {
+    width: 0;
+    height: 0;
+    display: block;
+    clear: both;
+
+    .flip-clock-label {
+      bottom: -1 * ($clock-digit-height - 1) * 2;
+
+      .over-99-days & {
+        margin-right: -1 * $clock-digit-width/2 - $clock-digit-spacing/2;
+      }
+    }
+  }
+
+  .flip-clock-divider.minutes ~ ul {
+    margin-top: 22px;
+  }
+}
+
+
+.chart {
+  display: none;
+}
+.clock-alt {
+  $clock-digit-font-size: 40px;
+  $clock-digit-width: 25px;
+  //$clock-digit-height: 61px;
+  $clock-digit-spacing: 3px;
+  $clock-digit-group-spacing: 88px;
+
+  margin-top: 23px;
+
+  &.flip-clock-wrapper ul li a div.up {
+    border: 0;
+  }
+
+  &.flip-clock-wrapper ul {
+    margin: 0 0 -8px 0;
+    width: $clock-digit-width;
+  }
+
+  &.flip-clock-wrapper ul + ul {
+    margin-left: $clock-digit-spacing;
+  }
+
+  .flip-clock-divider {
+    width: $clock-digit-group-spacing;
+  }
+
+  .flip-clock-divider.days { width: 0; }
+
+  .flip-clock-divider .flip-clock-label {
+    bottom: -17px;
+    font-size: 16px;
+    font-weight: 500;
+    width: $clock-digit-width * 2 + $clock-digit-spacing + $clock-digit-group-spacing;
+    right: -1 * ($clock-digit-width * 2 + $clock-digit-spacing + $clock-digit-group-spacing/2);
+  }
+
+  .chart {
+    display: block;
+    position: absolute;
+    left: -36px;
+    top: -15px;
+    //@include transform(translate3d(0,0,0));
+  }
+  .chart-hours {
+    left: 105px;
+  }
+  .chart-minutes {
+    left: 247px;
+  }
+  .chart-seconds {
+    left: 388px;
+  }
+
+
+  // Covers case when we have triple digit days
+  .over-99-days & {
+    margin-left: -2px;
+
+    .flip-clock-divider.days,
+    .flip-clock-divider.hours {
+      margin-left: -14px;
+    }
+
+    .flip-clock-divider.days .flip-clock-label {
+      margin-right: -12px;
+    }
+  }
+
+// @media only screen and (max-width:$palm-end) and (-webkit-max-device-pixel-ratio: 1.2) and (orientation:portrait),
+//   only screen and (max-width:$palm-end) and (-o-max-device-pixel-ratio: 6/5) and (orientation:portrait),
+//   only screen and (max-width:$palm-end) and (-moz-max-device-pixel-ratio: 1.2) and (orientation:portrait),
+//   only screen and (max-width:$palm-end) and (max-device-pixel-ratio: 1.2) and (orientation:portrait) {
+
+  @media only screen and (max-width:$palm-end) {
+    .flip-clock-divider.minutes {
+      width: 0;
+      height: 0;
+      display: block;
+      clear: both;
+
+      .flip-clock-label {
+        bottom: -147px;
+
+        .over-99-days & {
+          margin-right: 0;
+        }
+      }
+    }
+
+    .flip-clock-divider.minutes ~ ul {
+      margin-top: 76px;
+    }
+
+    .chart-minutes {
+      top: 125px;
+      left: -37px;
+    }
+    .chart-seconds {
+      top: 125px;
+      left: 104px;
+    }
+  }
+}

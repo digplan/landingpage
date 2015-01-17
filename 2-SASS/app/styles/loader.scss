@@ -1,0 +1,163 @@
+//@import "bourbon/bourbon";
+@import "vars";
+
+.loader {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10000;
+    opacity: 1;
+    transition: all 1s ease-out .7s;
+}
+
+.loader-logo {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    transition: all .7s ease-out;
+    transform: translate(0, -60%);
+}
+
+
+.bubblingG {
+    text-align: center;
+    width:80px;
+    height:50px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    transition: all .7s ease-out;
+    transform: translate(0, 50%);
+}
+
+.bubblingG span {
+    display: inline-block;
+    vertical-align: middle;
+    width: 10px;
+    height: 10px;
+    margin: 25px auto;
+    background: #000000;
+    border-radius: 50px;
+    animation: bubblingG 0.7s infinite alternate;
+}
+
+#bubblingG_1 {
+    animation-delay: 0s;
+}
+
+#bubblingG_2 {
+    animation-delay: 0.21s;
+}
+
+#bubblingG_3 {
+    animation-delay: 0.42s;
+}
+
+@keyframes bubblingG {
+    0% {
+        width: 10px;
+        height: 10px;
+        background-color:#000000;
+        transform: translateY(0);
+    }
+
+    100% {
+        width: 24px;
+        height: 24px;
+        background-color:#FFFFFF;
+        transform: translateY(-21px);
+    }
+}
+
+.loader--loading {
+    .logo {
+        opacity: 1;
+    }
+
+    .site-wrapper,
+    .nav-left,
+    .nav-right,
+    .nav-social {
+        transition: none;
+    }
+
+    .site-wrapper {
+        transform: translateY(-100%);
+    }
+
+    .nav-left {
+        transform: translate(-200%, -50%);
+    }
+
+    .nav-right {
+        transform: translate(200%, -50%);
+    }
+
+    .nav-social {
+        transform: translateY(200%);
+    }
+
+}
+
+.loader--loaded {
+    .loader {
+        opacity: 0;
+    }
+
+    .loader-logo {
+        transform: translate(0, -600%);
+    }
+
+    .bubblingG {
+        transform: translate(0, 1500%);
+    }
+
+    .site-wrapper {
+        transition: all 1s ease-in 1.2s;
+    }
+
+    .nav-left,
+    .nav-right,
+    .nav-social {
+        transition: all 1s ease-out 1.7s;
+    }
+
+    .site-wrapper,
+    .nav-social {
+        transform: translateY(0);
+    }
+
+    .nav-left {
+        transform: translate(0, -50%);
+    }
+
+    .nav-right {
+        transform: translate(0, -50%);
+    }
+}
+
+@media only screen and (max-width:$desk-wide-start - 1) {
+
+    .loader--loading {
+        .nav-left,
+        .nav-right {
+            transform: translateY(-200%);
+        }
+    }
+    .loader--loaded {
+        .nav-left,
+        .nav-right {
+            transform: translateY(0);
+        }
+    }
+
+}

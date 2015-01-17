@@ -1,0 +1,49 @@
+#video-container {
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+    transform: translate3d(0, 0, -1px);
+}
+
+#video-container .fillWidth {
+    width: auto;
+    height: auto;
+    min-width: 100%;
+    min-height: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%, -50%, 0);
+}
+
+.no-csstransforms3d #video-container .fillWidth {
+    transform: translate(-50%, -50%);
+}
+
+.no-csstransforms #video-container .fillWidth {
+    width: 100%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    min-height: 0;
+}
+
+.no-csstransforms #video-container .fillWidth {
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.touch #video-container .fillWidth {
+    display: none;
+}

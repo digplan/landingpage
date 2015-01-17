@@ -1,0 +1,27 @@
+{
+  "name": "minigo",
+  "version": "0.0.0",
+  "devDependencies": {
+    "grunt": "latest",
+    "grunt-contrib-imagemin": "latest",
+    "grunt-contrib-copy": "latest",
+    "grunt-contrib-concat": "latest",
+    "grunt-contrib-cssmin": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-cssmin": "latest",
+    "grunt-csso": "latest",
+    "grunt-contrib-clean": "latest",
+    "grunt-bower-install": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-rev": "latest",
+    "grunt-autoprefixer": "latest",
+    "grunt-usemin": "latest",
+    "grunt-modernizr": "latest",
+    "grunt-concurrent": "latest",
+    "time-grunt": "latest",
+    "grunt-contrib-sass": "latest"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  }
+}
